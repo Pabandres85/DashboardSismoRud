@@ -525,20 +525,6 @@
   margin-top: 3px;
 }
 
-.quality-card.empty {
-  grid-column: 1 / -1;
-  background: #f8fafc;
-  border-style: dashed;
-}
-
-.quality-card code {
-  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
-  font-size: 10px;
-  background: #eef2f7;
-  border-radius: 4px;
-  padding: 1px 4px;
-}
-
 .recommendations { padding: 19px }
 
 .recommendations ol {
@@ -551,6 +537,44 @@
 
 .recommendations li { padding-left: 4px }
 .recommendations strong { color: var(--ink) }
+
+.recommendations ul {
+  padding-left: 18px;
+  margin: 16px 0 0;
+  color: #526477;
+  font-size: 12px;
+  line-height: 1.7;
+  list-style: disc;
+}
+
+.recommendations code,
+.legend-note code,
+.q-meta code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: .92em;
+  background: #eef2f7;
+  border-radius: 4px;
+  padding: 1px 4px;
+  color: #41546b;
+}
+
+.limits-panel { margin-top: 17px }
+
+.limits-panel ul { margin-bottom: 4px }
+
+/* Marca de las filas cuya cifra aún no viaja en el bundle. */
+.cross-external {
+  color: var(--gold);
+  font-weight: 700;
+  cursor: help;
+}
+
+.cross-key {
+  color: #7b8899;
+  font-size: 11px;
+}
+
+td.cross-key { text-align: left }
 
 .privacy-box {
   display: flex;

@@ -35,7 +35,7 @@ Dashboard estático en HTML, CSS y JavaScript para analizar el RUD, las autoeval
 │       │   ├── cali-map.js     Capa Leaflet de puntos consolidados
 │       │   ├── cali.js         Sección 01 · Cali principal
 │       │   ├── valle.js        Sección 02 · Valle del Cauca
-│       │   └── quality.js      Sección 03 · Calidad y trazabilidad
+│       │   └── quality.js      Sección 03 · Metodología, calidad y trazabilidad
 │       └── main.js             Navegación y arranque
 ├── data/
 │   ├── rud_valle_data.js       window.VALLE_DATA · 42 municipios
@@ -87,7 +87,15 @@ Dos consecuencias de este esquema, que el código ya contempla:
 - `total` no trae `stateKnown`; se deriva sumando `status` sin la categoría "No informa" (185.496), para que el KPI de afectación grave siga siendo sobre estado conocido.
 - Los municipios llegan con conteos, **sin desglose** de estado, género ni etnia. Esos tres gráficos son departamentales y no reaccionan al filtro de municipio; el panel lo dice explícitamente.
 - El donut de confianza del cruce se arma desde `match.highRecords` / `mediumRecords` / `unmatchedRecords`, **no** desde `match.methods`. Ese array es redundante y en el lote 2026-09-01 llegó desfasado (612 en "Alta" cuando `highRecords` ya iba en 9.579). Los tres contadores sí suman `rudRecords` y son la misma fuente que leen los KPIs.
-- No hay bloque `quality`, así que la sección 03 muestra un estado vacío. Para repoblarla, el export debe traer `quality` con `missing[{field,missing,pct}]`, `duplicateDocumentValues` y `formNumbersReusedAcrossMunicipalities`.
+- No hay bloque `quality`: de la sección 03 solo queda vacío el gráfico de completitud por campo.
+
+## Sección 03 · Metodología
+
+Documenta cómo se consolidaron las fuentes: linaje del dato (las cuatro Lambdas y el bucket medallion), las cinco llaves de cruce con sus tasas, los niveles de confianza del cruce por dirección, la normalización aplicada al RUD, la protección de datos bajo la Ley 1581 de 2012 y los límites de lectura.
+
+**Regla de la sección: narrativa estática, cifras vivas.** El texto del método vive en `DASH.config.methodology`; todo número que exista en `CALI_DATA` o `VALLE_DATA` se lee en tiempo de render. El documento metodológico original ya se había desfasado del dato en cuatro puntos tras un solo lote, así que ninguna cifra se escribe en el texto.
+
+La única excepción es `methodology.external`: las tasas de `Reporte ↔ Cluster` y `Cluster ↔ Subcluster`, que se calculan en `resumen_calidad.json` pero todavía no viajan en el bundle. Van marcadas con `·` en la tabla y hay que actualizarlas junto con el lote. Lo correcto es que `aca-prod-dashboard-builder` las publique y dejen de estar escritas a mano.
 
 ## Degradación
 
