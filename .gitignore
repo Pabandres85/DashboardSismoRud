@@ -1,0 +1,24 @@
+# Fuentes crudas del RUD y de las evaluaciones.
+# Contienen nombres, documentos, teléfonos y correos: nunca se versionan.
+input/
+*.xlsx
+*.xls
+ciudadano.json
+personal.json
+reporte.json
+evaluacion_paso1.json
+evaluacion_paso2.json
+evaluationsV2.geojson
+placesV2.geojson
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# Sistema operativo y editores
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/

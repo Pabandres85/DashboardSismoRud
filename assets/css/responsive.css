@@ -1,0 +1,107 @@
+/* ============================================================
+   responsive.css · debe cargarse en último lugar
+   ============================================================ */
+
+@media (max-width: 1100px) {
+  .sidebar { width: 205px }
+
+  .main {
+    margin-left: 205px;
+    width: calc(100% - 205px);
+    padding: 28px 24px;
+  }
+
+  .kpi-grid { grid-template-columns: repeat(2, 1fr) }
+  .three-col { grid-template-columns: 1fr 1fr }
+  .insight-panel { grid-column: 1 / -1 }
+  .quality-grid { grid-template-columns: repeat(2, 1fr) }
+}
+
+@media (max-width: 760px) {
+  .app-shell { display: block }
+
+  .sidebar {
+    position: relative;
+    width: 100%;
+    height: auto;
+    padding: 15px 14px;
+  }
+
+  .brand { padding-bottom: 15px }
+
+  .sidebar-note,
+  .sidebar-footer { display: none }
+
+  .nav {
+    display: flex;
+    overflow: auto;
+  }
+
+  .nav-item { white-space: nowrap }
+
+  .main {
+    margin-left: 0;
+    width: 100%;
+    padding: 23px 15px;
+  }
+
+  .topbar { display: block }
+
+  .header-actions {
+    margin-top: 18px;
+    justify-content: space-between;
+  }
+
+  .header-actions select { flex: 1 }
+
+  .header-badge { display: none }
+
+  .two-col,
+  .three-col { grid-template-columns: 1fr }
+
+  .quality-grid { grid-template-columns: 1fr 1fr }
+
+  .section-intro { display: block }
+  .section-intro p { margin-top: 10px }
+
+  .chart-wrap.tall { height: 280px }
+
+  .filter-bar select,
+  .filter-bar input {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .filter-bar > div,
+  .valle-filters label { width: 100% }
+
+  .mode-btn { flex: 1 }
+
+  .filter-group {
+    min-width: 0;
+    width: 100%;
+  }
+
+  .map-filters select,
+  .map-filters input {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .map-filters-fields > div { width: 100% }
+
+  .map-canvas { height: 340px }
+
+  .coverage-list div { display: block }
+
+  .coverage-list strong {
+    display: block;
+    text-align: left;
+    margin-top: 3px;
+  }
+
+  .footer {
+    display: block;
+    line-height: 1.8;
+  }
+}

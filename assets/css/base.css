@@ -1,0 +1,73 @@
+/* ============================================================
+   base.css · tokens de diseño, reset y tipografía
+   ============================================================ */
+
+:root {
+  --ink: #16263b;
+  --muted: #6e7c8d;
+  --line: #e6ebf1;
+  --paper: #f6f8fb;
+  --panel: #fff;
+  --blue: #2b6ef3;
+  --blue-soft: #eaf1ff;
+  --coral: #e36a58;
+  --gold: #d79b28;
+  --green: #2f9d78;
+  --purple: #7757c7;
+  --navy: #10253d;
+  --shadow: 0 12px 32px rgba(28, 49, 78, .07);
+  --map-bg: #edf2f5;
+}
+
+* { box-sizing: border-box }
+
+html { scroll-behavior: smooth }
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: 'DM Sans', system-ui, sans-serif;
+}
+
+h1, h2, p { margin: 0 }
+
+h1, h2, .brand-name { font-family: 'Space Grotesk', sans-serif }
+
+h1 {
+  font-size: clamp(1.8rem, 3vw, 2.7rem);
+  letter-spacing: -.05em;
+  line-height: 1.05;
+  margin-top: 5px;
+}
+
+h2 {
+  font-size: 1.14rem;
+  letter-spacing: -.025em;
+  margin-top: 4px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12px;
+}
+
+th {
+  text-align: left;
+  color: #8996a5;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  padding: 9px;
+  border-bottom: 1px solid var(--line);
+}
+
+td {
+  padding: 10px 9px;
+  border-bottom: 1px solid #f0f2f5;
+  color: #415267;
+}
+
+td:not(:first-child),
+th:not(:first-child) { text-align: right }

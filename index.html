@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Panel interno de análisis del RUD y la respuesta sísmica en Cali y el Valle del Cauca">
+  <title>Cali · RUD y evaluación sísmica</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="">
+  <link rel="stylesheet" href="assets/css/base.css">
+  <link rel="stylesheet" href="assets/css/layout.css">
+  <link rel="stylesheet" href="assets/css/components.css">
+  <link rel="stylesheet" href="assets/css/map.css">
+  <link rel="stylesheet" href="assets/css/responsive.css">
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <div class="brand"><div class="brand-mark">R</div><div><div class="brand-name">RUD / SISMO</div><div class="brand-sub">Cali · Valle del Cauca</div></div></div>
+      <nav class="nav" aria-label="Secciones principales">
+        <button class="nav-item active" data-section="cali"><span>01</span> Cali principal</button>
+        <button class="nav-item" data-section="valle"><span>02</span> Valle del Cauca</button>
+        <button class="nav-item" data-section="quality"><span>03</span> Calidad y trazabilidad</button>
+      </nav>
+      <div class="sidebar-note"><div class="note-label">LECTURA OPERATIVA</div><p>RUD como fuente principal; autoevaluaciones, visitas y reportes como capas de contraste territorial.</p></div>
+      <div class="sidebar-footer">Panel interno · datos agregados para gestión</div>
+    </aside>
+
+    <main class="main">
+      <header class="topbar"><div><div class="eyebrow">REGISTRO ÚNICO DE DAMNIFICADOS</div><h1 id="page-title">Cali principal</h1><p id="page-subtitle">Lectura sociodemográfica, territorial y estructural de Cali.</p></div><div class="header-badge">ACTUALIZACIÓN ANALÍTICA<br><strong>RUD + fuentes de respuesta</strong></div></header>
+      <div class="app-notice" id="app-notice" hidden></div>
+
+      <section class="section active" id="section-cali">
+        <div class="section-intro"><div><div class="eyebrow">FOCO TERRITORIAL</div><h2>Cali urbana y rural</h2></div><p>El RUD organiza el análisis. Las autoevaluaciones, visitas y ciudadanos complementan la lectura de direcciones, corregimientos, veredas y puntos georreferenciados.</p></div>
+
+        <div class="mode-switch" role="tablist" aria-label="Modo de análisis de Cali">
+          <button class="mode-btn active" data-mode="rud">RUD Cali</button>
+          <button class="mode-btn" data-mode="crossed">RUD + autoevaluaciones</button>
+          <button class="mode-btn" data-mode="citizens">Ciudadanos vs RUD</button>
+        </div>
+        <div class="filter-bar cali-filter-bar">
+          <div class="filter-group">
+            <div class="group-legend">Alcance del análisis <span>KPIs, gráficos, tablas y mapa</span></div>
+            <div class="group-fields">
+              <div><label for="cali-zone-filter">Territorio</label><select id="cali-zone-filter"><option value="ALL">Urbano + rural</option><option value="Urbana">Zona urbana</option><option value="Rural">Zona rural</option></select></div>
+              <div class="area-field"><label for="cali-area-filter">Barrio / vereda</label><div class="combo"><input id="cali-area-filter" type="text" placeholder="Todas las áreas" autocomplete="off" spellcheck="false" role="combobox" aria-expanded="false" aria-controls="cali-area-list" aria-autocomplete="list"><button type="button" class="combo-toggle" id="cali-area-toggle" tabindex="-1" aria-label="Mostrar áreas">▾</button><ul class="combo-list" id="cali-area-list" role="listbox" hidden></ul></div><div class="field-hint" id="cali-area-hint"></div></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="kpi-grid cali-kpis">
+          <article class="kpi-card"><div class="kpi-label" id="label-kpi-records">REGISTROS RUD</div><div class="kpi-value" id="cali-kpi-records">—</div><div class="kpi-meta" id="meta-kpi-records">Cali</div></article>
+          <article class="kpi-card accent-green"><div class="kpi-label" id="label-kpi-unique">PERSONAS ÚNICAS</div><div class="kpi-value" id="cali-kpi-unique">—</div><div class="kpi-meta" id="meta-kpi-unique">Documento normalizado como llave interna</div></article>
+          <article class="kpi-card accent-gold"><div class="kpi-label" id="label-kpi-households">HOGARES / FORMULARIOS</div><div class="kpi-value" id="cali-kpi-households">—</div><div class="kpi-meta" id="meta-kpi-households">Conteo del RUD en el alcance seleccionado</div></article>
+          <article class="kpi-card accent-coral"><div class="kpi-label" id="label-kpi-match">RUD CON CRUCE</div><div class="kpi-value" id="cali-kpi-match">—</div><div class="kpi-meta" id="meta-kpi-match">Dirección normalizada y nomenclatura + área</div></article>
+        </div>
+        <div class="insight-strip" id="cali-insight"><span class="alert-dot"></span><span>Preparando lectura consolidada de Cali…</span></div>
+
+        <div class="content-grid two-col"><article class="panel chart-panel"><div class="panel-head"><div><div class="panel-kicker">ESTADO DEL BIEN</div><h2>Afectación reportada en el RUD</h2></div><span class="panel-tag" id="cali-state-tag">Cali</span></div><div class="chart-wrap"><canvas id="cali-state-chart"></canvas></div></article><article class="panel chart-panel"><div class="panel-head"><div><div class="panel-kicker">CICLO VITAL</div><h2>Distribución por edad</h2></div><span class="panel-tag">RUD</span></div><div class="chart-wrap"><canvas id="cali-age-chart"></canvas></div></article></div>
+        <div class="content-grid three-col"><article class="panel mini-panel"><div class="panel-kicker">COMPOSICIÓN</div><h2>Género</h2><div class="chart-wrap small"><canvas id="cali-gender-chart"></canvas></div></article><article class="panel mini-panel"><div class="panel-kicker">PERTENENCIA</div><h2>Etnia</h2><div class="chart-wrap small"><canvas id="cali-ethnicity-chart"></canvas></div></article><article class="panel mini-panel"><div class="panel-kicker">TERRITORIO</div><h2>Urbano y rural</h2><div class="chart-wrap small"><canvas id="cali-zone-chart"></canvas></div></article></div>
+        <div class="content-grid two-col"><article class="panel chart-panel"><div class="panel-head"><div><div class="panel-kicker">HOGAR</div><h2>Parentesco registrado</h2></div><span class="panel-tag">Cali</span></div><div class="chart-wrap tall"><canvas id="cali-kinship-chart"></canvas></div></article><article class="panel chart-panel"><div class="panel-head"><div><div class="panel-kicker">ÁREAS CON MÁS REGISTROS</div><h2>Barrios, sectores y veredas</h2></div><span class="panel-tag">Top 15</span></div><div class="chart-wrap tall"><canvas id="cali-area-chart"></canvas></div></article></div>
+        <div class="content-grid three-col"><article class="panel mini-panel"><div class="panel-kicker">TENENCIA</div><h2>Relación con el bien</h2><div class="chart-wrap small"><canvas id="cali-tenure-chart"></canvas></div></article><article class="panel mini-panel"><div class="panel-kicker">TIPO DE BIEN</div><h2>Bienes reportados</h2><div class="chart-wrap small"><canvas id="cali-property-chart"></canvas></div></article><article class="panel mini-panel"><div class="panel-kicker">DIRECCIONES</div><h2>Cobertura textual</h2><div class="coverage-list" id="cali-coverage-list"></div></article></div>
+
+        <div class="content-grid two-col"><article class="panel map-panel"><div class="panel-head"><div><div class="panel-kicker">REFERENCIA OPERATIVA</div><h2>Direcciones georreferenciadas</h2></div><span class="panel-tag" id="map-status">Cargando mapa</span></div><div class="map-filters"><div class="map-filters-legend">Capa del mapa <span>filtra solo estos puntos</span></div><div class="map-filters-fields"><div><label for="cali-damage-filter">Daño estructural</label><select id="cali-damage-filter"><option value="ALL">Todos</option><option value="alto">Alto</option><option value="medio">Medio</option><option value="bajo">Bajo</option><option value="sin_dano">Sin daño</option><option value="sin_dato">Sin evaluación</option></select></div><div class="map-search"><label for="cali-search">Buscar dirección o sector</label><input id="cali-search" type="search" placeholder="Ej. San Fernando, Carrera 50"></div></div></div><div id="cali-map" class="map-canvas" aria-label="Mapa interno de Cali"></div><div class="map-tools"><span id="geojson-status">Cargando puntos consolidados…</span></div><div class="legend-note">Los popups muestran la dirección de referencia, el sector, el RUD asociado y la evaluación estructural. La capa es para uso interno.</div></article><article class="panel chart-panel"><div class="panel-head"><div><div class="panel-kicker">CRUCE TERRITORIAL</div><h2>Confianza de la relación RUD–evaluación</h2></div><span class="panel-tag">Direcciones</span></div><div class="chart-wrap"><canvas id="cali-match-chart"></canvas></div><div class="legend-note">Solo se enlazan automáticamente coincidencias unívocas; las demás quedan pendientes de revisión.</div></article></div>
+
+        <div class="content-grid two-col"><article class="panel chart-panel"><div class="panel-head"><div><div class="panel-kicker">AUTOEVALUACIONES Y VISITAS</div><h2>Hallazgos estructurales</h2></div><span class="panel-tag" id="evaluation-tag">Fuentes nuevas</span></div><div class="chart-wrap"><canvas id="cali-damage-chart"></canvas></div></article><article class="panel chart-panel"><div class="panel-head"><div><div class="panel-kicker">CIUDADANÍA</div><h2>Documentos ciudadanos frente al RUD</h2></div><span class="panel-tag" id="citizen-tag">Comparación</span></div><div class="chart-wrap"><canvas id="cali-citizen-chart"></canvas></div></article></div>
+        <div class="content-grid two-col"><article class="panel chart-panel"><div class="panel-head"><div><div class="panel-kicker">SEVERIDAD</div><h2>Resultado de evaluaciones</h2></div><span class="panel-tag">Paso estructural</span></div><div class="chart-wrap"><canvas id="cali-severity-chart"></canvas></div></article><article class="panel table-panel"><div class="panel-head"><div><div class="panel-kicker">TRAZABILIDAD</div><h2>Fuentes integradas</h2></div><span class="panel-tag">Cali</span></div><div class="table-scroll"><table><thead><tr><th>Fuente</th><th>Registros</th><th>Uso</th></tr></thead><tbody id="cali-source-table"></tbody></table></div></article></div>
+        <div class="panel table-panel citizen-detail-panel"><div class="panel-head"><div><div class="panel-kicker">CONCILIACIÓN DE CIUDADANOS</div><h2>Quién aparece y quién no en el RUD</h2></div><span class="panel-tag">Identificador protegido</span></div><div class="detail-toolbar"><select id="citizen-status-filter"><option value="ALL">Todos</option><option value="MATCHED">En RUD Cali</option><option value="UNMATCHED">Sin cruce</option></select><input id="citizen-search" type="search" placeholder="Buscar por identificador protegido o últimos dígitos"></div><div class="table-scroll detail-scroll"><table><thead><tr><th>Identificador</th><th>Documento</th><th>Estado</th><th>Registros RUD</th></tr></thead><tbody id="citizen-detail-table"></tbody></table></div><div class="legend-note">La tabla no contiene nombres, teléfonos ni documentos completos. Para identificar una persona se requiere un módulo autenticado con permisos específicos.</div></div>
+      </section>
+
+      <section class="section" id="section-valle"><div class="section-intro"><div><div class="eyebrow">LECTURA DEPARTAMENTAL</div><h2>Valle del Cauca en general</h2></div><p>Vista comparativa del RUD para los municipios del departamento. Cali se analiza con más profundidad en la pestaña principal.</p></div><div class="filter-bar valle-filters"><label for="valle-municipality-filter">Municipio</label><select id="valle-municipality-filter"><option value="ALL">Todo el Valle del Cauca</option></select></div><div class="kpi-grid"><article class="kpi-card"><div class="kpi-label">REGISTROS RUD</div><div class="kpi-value" id="valle-records">—</div><div class="kpi-meta" id="valle-records-meta">Departamento</div></article><article class="kpi-card accent-coral"><div class="kpi-label">AFECTACIÓN GRAVE</div><div class="kpi-value" id="valle-serious">—</div><div class="kpi-meta">No habitable + destruido</div></article><article class="kpi-card accent-gold"><div class="kpi-label">POBLACIÓN PRIORITARIA</div><div class="kpi-value" id="valle-priority">—</div><div class="kpi-meta">Menores y mayores de 65</div></article><article class="kpi-card accent-green"><div class="kpi-label">MUJERES REGISTRADAS</div><div class="kpi-value" id="valle-women">—</div><div class="kpi-meta">Proporción dentro del alcance</div></article></div><div class="content-grid two-col"><article class="panel chart-panel"><div class="panel-head"><div><div class="panel-kicker">ESTADO</div><h2>Estado de los bienes</h2></div><span class="panel-tag" id="valle-tag">Total</span></div><div class="chart-wrap"><canvas id="valle-state-chart"></canvas></div></article><article class="panel chart-panel"><div class="panel-head"><div><div class="panel-kicker">MUNICIPIOS</div><h2>Registros por municipio</h2></div><span class="panel-tag">Top 15</span></div><div class="chart-wrap"><canvas id="valle-municipality-chart"></canvas></div></article></div><div class="content-grid three-col"><article class="panel mini-panel"><div class="panel-kicker">GÉNERO</div><h2>Composición</h2><div class="chart-wrap small"><canvas id="valle-gender-chart"></canvas></div></article><article class="panel mini-panel"><div class="panel-kicker">ETNIA</div><h2>Pertenencia étnica</h2><div class="chart-wrap small"><canvas id="valle-ethnicity-chart"></canvas></div></article><article class="panel mini-panel"><div class="panel-kicker">PRIORIZACIÓN</div><h2>Menores y mayores</h2><div class="chart-wrap small"><canvas id="valle-priority-chart"></canvas></div></article></div><div class="legend-note">Estado, género y etnia se publican solo a nivel departamental en esta entrega del RUD; no cambian al filtrar por municipio. El filtro sí acota los KPIs, el gráfico de municipios, la priorización y la tabla.</div><div class="panel table-panel"><div class="panel-head"><div><div class="panel-kicker">COMPARACIÓN TERRITORIAL</div><h2>Indicadores por municipio</h2></div><span class="panel-tag">RUD</span></div><div class="table-scroll"><table><thead><tr><th>Municipio</th><th>Registros</th><th>Grave</th><th>Prioridad</th></tr></thead><tbody id="valle-table"></tbody></table></div></div></section>
+
+      <section class="section" id="section-quality"><div class="section-intro"><div><div class="eyebrow">CONTROL DE DATOS</div><h2>Calidad y trazabilidad</h2></div><p>Controles para interpretar correctamente los resultados y mantener separadas las llaves internas, los datos personales y los agregados de gestión.</p></div><div class="quality-grid" id="quality-cards"></div><div class="content-grid two-col"><article class="panel chart-panel"><div class="panel-head"><div><div class="panel-kicker">COMPLETITUD</div><h2>Campos con mayor ausencia</h2></div><span class="panel-tag" id="quality-missing-tag">RUD</span></div><div class="chart-wrap tall"><canvas id="quality-missing-chart"></canvas></div><div class="legend-note" id="quality-missing-note"></div></article><article class="panel recommendations"><div class="panel-kicker">REGLAS DE LECTURA</div><h2>Decisiones metodológicas</h2><ol><li><strong>RUD:</strong> fuente principal para personas, hogares, bienes y perfil sociodemográfico.</li><li><strong>Documento:</strong> llave privada para deduplicar y comparar; no se publica en el navegador.</li><li><strong>Dirección:</strong> se muestra en el panel interno y se georreferencia con nivel de confianza.</li><li><strong>Evaluación:</strong> el cruce estructural se relaciona por `place` → `id` y `arcgisGlobalId`.</li><li><strong>Sin coincidencia:</strong> no significa ausencia del evento; significa que la relación automática no fue concluyente.</li></ol><div class="privacy-box"><span class="privacy-icon">◆</span><div><strong>Protección de información</strong><p>No incluir `ciudadano.json`, `personal.json` ni los JSON crudos en un despliegue público. El repositorio contiene agregados y puntos internos controlados.</p></div></div></article></div></section>
+      <footer class="footer"><span>Fuentes: RUD, reportes ciudadanos, autoevaluaciones y visitas.</span><span>Dashboard interno · visualización agregada</span></footer>
+    </main>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+  <!-- Datos precalculados -->
+  <script src="data/rud_valle_data.js"></script>
+  <script src="data/cali_dashboard_data.js"></script>
+
+  <!-- Núcleo (el orden importa: config y utils primero) -->
+  <script src="assets/js/core/config.js"></script>
+  <script src="assets/js/core/utils.js"></script>
+  <script src="assets/js/core/charts.js"></script>
+  <script src="assets/js/core/filters.js"></script>
+
+  <!-- Secciones -->
+  <script src="assets/js/sections/cali-map.js"></script>
+  <script src="assets/js/sections/cali.js"></script>
+  <script src="assets/js/sections/valle.js"></script>
+  <script src="assets/js/sections/quality.js"></script>
+
+  <!-- Arranque -->
+  <script src="assets/js/main.js"></script>
+</body>
+</html>

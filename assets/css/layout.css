@@ -1,0 +1,201 @@
+/* ============================================================
+   layout.css · shell, barra lateral, cabecera, secciones, pie
+   ============================================================ */
+
+.app-shell {
+  display: flex;
+  min-height: 100vh;
+}
+
+/* --- Barra lateral ---------------------------------------- */
+
+.sidebar {
+  position: fixed;
+  inset: 0 auto 0 0;
+  width: 244px;
+  background: var(--navy);
+  color: #fff;
+  padding: 25px 18px 20px;
+  display: flex;
+  flex-direction: column;
+  z-index: 5;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  padding: 0 8px 34px;
+}
+
+.brand-mark {
+  height: 36px;
+  width: 36px;
+  border-radius: 11px;
+  background: #f2b957;
+  color: var(--navy);
+  font: 700 21px 'Space Grotesk';
+  display: grid;
+  place-items: center;
+}
+
+.brand-name {
+  font-size: 12px;
+  letter-spacing: .1em;
+  font-weight: 700;
+}
+
+.brand-sub {
+  font-size: 11px;
+  color: #9db0c5;
+  margin-top: 3px;
+}
+
+.nav {
+  display: grid;
+  gap: 7px;
+}
+
+.nav-item {
+  appearance: none;
+  background: transparent;
+  border: 0;
+  border-radius: 10px;
+  padding: 12px 12px;
+  color: #b9c7d8;
+  text-align: left;
+  font: 600 13px 'DM Sans';
+  cursor: pointer;
+  transition: .2s;
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.nav-item span {
+  font-size: 10px;
+  color: #6e849c;
+  letter-spacing: .1em;
+}
+
+.nav-item:hover {
+  background: #193653;
+  color: #fff;
+}
+
+.nav-item.active {
+  background: #f4f7fb;
+  color: var(--navy);
+}
+
+.nav-item.active span { color: var(--blue) }
+
+.sidebar-note {
+  margin-top: auto;
+  background: #183550;
+  border: 1px solid #254766;
+  border-radius: 14px;
+  padding: 14px;
+}
+
+.note-label { color: #84a0bd }
+
+.sidebar-note p {
+  font-size: 11px;
+  line-height: 1.55;
+  color: #c8d5e3;
+  margin-top: 7px;
+}
+
+.sidebar-footer {
+  font-size: 10px;
+  color: #728ba4;
+  margin: 15px 8px 0;
+}
+
+/* --- Área principal --------------------------------------- */
+
+.main {
+  margin-left: 244px;
+  width: calc(100% - 244px);
+  padding: 33px 42px 20px;
+  max-width: 1700px;
+}
+
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 20px;
+  margin-bottom: 27px;
+}
+
+#page-subtitle {
+  color: var(--muted);
+  font-size: 14px;
+  margin-top: 10px;
+}
+
+.header-badge {
+  font-size: 10px;
+  line-height: 1.6;
+  letter-spacing: .1em;
+  text-align: right;
+  color: #8a96a4;
+}
+
+.header-badge strong {
+  color: var(--navy);
+  font-size: 11px;
+  letter-spacing: 0;
+}
+
+/* --- Secciones y rejillas --------------------------------- */
+
+.section {
+  display: none;
+  animation: fade .22s ease;
+}
+
+.section.active { display: block }
+
+@keyframes fade {
+  from { opacity: 0; transform: translateY(5px) }
+  to   { opacity: 1; transform: none }
+}
+
+.section-intro {
+  display: flex;
+  justify-content: space-between;
+  gap: 28px;
+  align-items: flex-end;
+  margin: 4px 0 21px;
+}
+
+.section-intro h2 { font-size: 1.55rem }
+
+.section-intro p {
+  max-width: 500px;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.55;
+}
+
+.content-grid {
+  display: grid;
+  gap: 17px;
+  margin-top: 17px;
+}
+
+.two-col { grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr) }
+
+.three-col { grid-template-columns: repeat(3, 1fr) }
+
+.footer {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  color: #a0aab5;
+  font-size: 10px;
+  margin: 28px 2px 5px;
+}
