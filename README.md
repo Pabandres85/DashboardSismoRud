@@ -86,6 +86,7 @@ Dos consecuencias de este esquema, que el código ya contempla:
 
 - `total` no trae `stateKnown`; se deriva sumando `status` sin la categoría "No informa" (185.496), para que el KPI de afectación grave siga siendo sobre estado conocido.
 - Los municipios llegan con conteos, **sin desglose** de estado, género ni etnia. Esos tres gráficos son departamentales y no reaccionan al filtro de municipio; el panel lo dice explícitamente.
+- El donut de confianza del cruce se arma desde `match.highRecords` / `mediumRecords` / `unmatchedRecords`, **no** desde `match.methods`. Ese array es redundante y en el lote 2026-09-01 llegó desfasado (612 en "Alta" cuando `highRecords` ya iba en 9.579). Los tres contadores sí suman `rudRecords` y son la misma fuente que leen los KPIs.
 - No hay bloque `quality`, así que la sección 03 muestra un estado vacío. Para repoblarla, el export debe traer `quality` con `missing[{field,missing,pct}]`, `duplicateDocumentValues` y `formNumbersReusedAcrossMunicipalities`.
 
 ## Degradación

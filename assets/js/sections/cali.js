@@ -205,7 +205,17 @@ window.DASH = window.DASH || {};
       ['RUD asociado a puntos', `${fmt.format(data.match.matchedRecords)} · ${data.match.matchedPct.toFixed(1)}%`],
     ].map(([label, value]) => `<div><span>${label}</span><strong>${value}</strong></div>`).join('');
 
-    donut('cali-match-chart', data.match.methods, palettes.match);
+    /* Se arma desde los contadores de confianza y no desde
+       `match.methods`: ese array es redundante y puede quedar
+       desfasado en el export (en el lote 2026-09-01 traia 612 en
+       "Alta" cuando highRecords ya iba en 9.579). highRecords +
+       mediumRecords + unmatchedRecords si cuadra con rudRecords,
+       y es la misma fuente que leen los KPIs. */
+    donut('cali-match-chart', [
+      { label: 'Alta · dirección normalizada', value: data.match.highRecords },
+      { label: 'Media · nomenclatura + área', value: data.match.mediumRecords },
+      { label: 'Sin coincidencia', value: data.match.unmatchedRecords },
+    ], palettes.match);
     donut('cali-citizen-chart', [
       { label: 'En RUD Cali', value: data.citizens.matchedRudCali },
       { label: 'Sin coincidencia', value: data.citizens.unmatchedRudCali },
